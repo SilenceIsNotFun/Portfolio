@@ -56,3 +56,25 @@ if (
 } else {
   darkToggle.checked = false;
 }
+
+// Language toggle
+const langToggle = document.querySelector("#lang-toggle");
+const langToggleLabel = document.querySelector("#lang-toggle-label");
+const htmlEl = document.querySelector("html");
+const i18nNodes = document.querySelectorAll("[data-id][data-en]");
+
+function applyLang(lang) {
+  i18nNodes.forEach(function (node) {
+    node.textContent = lang === "en" ? node.dataset.en : node.dataset.id;
+  });
+  langToggleLabel.textContent = lang === "en" ? "ID" : "EN";
+  htmlEl.setAttribute("lang", lang);
+  localStorage.lang = lang;
+}
+
+const initialLang = localStorage.lang === "en" ? "en" : "id";
+applyLang(initialLang);
+
+langToggle.addEventListener("click", function () {
+  applyLang(localStorage.lang === "en" ? "id" : "en");
+});
